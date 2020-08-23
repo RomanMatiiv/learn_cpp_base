@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/roman/stepic_cpp_base/module_2/task_3_rotate/main.cpp
+iostream
+-
+string
+-
+vector
+-
+iterator
+-
+
