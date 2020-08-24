@@ -30,26 +30,28 @@
 //}
 
 //version 2 memcpy
+char* resize(const char* str, unsigned size, unsigned new_size)
+{
+    char* new_str = new char[new_size];
+    std::memcpy(new_str,str, new_size);
+
+    delete [] str;
+
+    return new_str;
+}
+
+//version 3 memmove
 //char* resize(const char* str, unsigned size, unsigned new_size)
 //{
 //    char* new_str = new char[new_size];
-//    std::memcpy(new_str,str, new_size);
+//    std::memmove(new_str,str, new_size);
 //
 //    delete [] str;
 //
 //    return new_str;
 //}
 
-//version 3 memmove
-char* resize(const char* str, unsigned size, unsigned new_size)
-{
-    char* new_str = new char[new_size];
-    std::memmove(new_str,str, new_size);
 
-    delete [] str;
-
-    return new_str;
-}
 
 
 int main()
@@ -71,3 +73,14 @@ int main()
 
     return 0;
 }
+
+
+
+//#include <cstring>
+//char *resize(const char *str, unsigned size, unsigned new_size)
+//{
+//    char* result = new char[new_size];
+//    memcpy(result,str,new_size >= size ? size : new_size);
+//    delete [] str;
+//    return result;
+//}
