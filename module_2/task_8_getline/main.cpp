@@ -12,17 +12,52 @@
 
 #include <iostream>
 #include <cstring>
+char* resize(const char* str, unsigned size, unsigned new_size)
+{
+    char* new_str = new char[new_size];
+    std::memcpy(new_str,str, new_size);
 
+    delete [] str;
+
+    return new_str;
+}
+
+
+char* getline()
+{
+    int iter = 0;
+    int size = 2;
+    int new_size = 0;
+
+    char* result = new char [size];
+
+    char cur_symbol = '\0';
+
+    while(std::cin.get(cur_symbol) &&
+          cur_symbol != '\n' &&
+          cur_symbol != EOF)
+    {
+        if(iter>=size)
+        {
+            new_size = size * 2;
+            result = resize(result,size,new_size);
+            size = new_size;
+        }
+
+        result[iter] = cur_symbol;
+
+        iter++;
+    }
+
+    result[iter] = '\0';
+
+    return result;
+}
 
 
 
 int main()
 {
-
-    while (std::cin != '\0')
-    {
-        std::cout << 1;
-    }
-
+    std::cout << getline();
     return 0;
 }
