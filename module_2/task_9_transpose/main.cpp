@@ -12,16 +12,38 @@
 // Изменять исходную матрицу нельзя.
 #include <iostream>
 
-// TODO переделать с учетом того, что матрица может быть не квадратная (rows!=cols)
+/**
+ * Транспонирует матрицу
+ * Рабатает не совсем как математическое транспонирование а скорее как переварачивание
+ *
+ * @param m: исходная матрица
+ * @param rows: кол-во строк в исходной матрице
+ * @param cols: кол-во столбцов в исзодной матрице
+ * @return транспонированная(перевернутая) матрица
+ * @example
+ * \n Исходный массив \n
+    10 11 \n
+    12 13 \n
+    14 15 \n
+    16 17 \n
+    18 19 \n
+    Транспонирванный(перевернутый) массив \n
+    10 12 14 16 18 \n
+    11 13 15 17 19 \n
+
+ */
 int ** transpose(const int * const * m, unsigned rows, unsigned cols)
 {
-    int** t_arr = new int* [rows];
+    unsigned cols_in_t = rows;
+    unsigned rows_in_t = cols;
 
-    for (int i = 0; i < rows; ++i)
+    int** t_arr = new int* [rows_in_t];
+
+    for (int i = 0; i < rows_in_t; ++i)
     {
-        t_arr[i] = new int[cols];
+        t_arr[i] = new int[cols_in_t];
 
-        for (int j = 0; j < cols; ++j)
+        for (int j = 0; j < cols_in_t; ++j)
         {
             t_arr[i][j] = m[j][i];
         }
@@ -47,7 +69,7 @@ int main()
     // Создание матрицы
     int init_val = 10;
     int n_rows = 5;
-    int n_cols = 5;
+    int n_cols = 2;
 
     int** arr = new int*[n_rows];
 
@@ -67,13 +89,16 @@ int main()
     std::cout << "Транспонирванный массив"<< std::endl;
     int** t_arr = new int* [n_cols];
     t_arr = transpose(arr,n_rows,n_cols);
-    pprint_matrix(t_arr,n_rows,n_cols);
+    pprint_matrix(t_arr,n_cols,n_rows);
 
     // Удаление созданных ранее матриц
     for (int i = 0; i < n_rows; ++i)
     {
         delete[] arr[i];
-        delete [] t_arr[i];
+    }
+    for (int i = 0; i < n_cols; ++i)
+    {
+        delete[] t_arr[i];
     }
     delete [] arr;
     delete [] t_arr;
