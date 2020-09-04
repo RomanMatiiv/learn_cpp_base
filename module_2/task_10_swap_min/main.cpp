@@ -26,38 +26,90 @@ void remove_2d_array(int** array,unsigned rows, unsigned cols)
     delete [] array;
 }
 
-//TODO протестировать
-int* find_row_with_min(int** array, unsigned rows, unsigned cols)
+void pprint_matrix(int** matrix, int n_rows, int n_cols)
 {
-    int* min_row = nullptr;
+    for (int i = 0; i < n_rows; ++i)
+    {
+        for (int j = 0; j < n_cols; ++j)
+        {
+            std::cout<< matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+/**
+ * Находит индекс строки, в которой содержится минимальный элемент
+ * @param array маввив
+ * @param rows кол-во строк
+ * @param cols кол-во столбцов
+ * @return индекс строки
+ */
+int find_index_row_with_min(int** array, unsigned rows, unsigned cols)
+{
+    int min_row_index = 0;
     int min_val = std::numeric_limits<int>::max();
-    int cur_min = 0;
 
     for (int i = 0; i < rows; ++i)
     {
-        cur_min = **(std::min_element(&array[i],&array[i+cols]));
-
-        if (cur_min < min_val)
+        for (int j = 0; j < cols; ++j)
         {
-            min_val = cur_min;
-            min_row = array[i];
+            if (array[i][j] < min_val)
+            {
+                min_val = array[i][j];
+                min_row_index = i;
+            }
         }
     }
 
-    return min_row;
+    return min_row_index;
 }
 
+/**
+ * Меняет строку с наименьшим элементом местами с первой строкой массива
+ * @param m : массив
+ * @param rows : кол-во строк
+ * @param cols : кол-во столбцов
+ */
 void swap_min(int *m[], unsigned rows, unsigned cols)
 {
-    /* ... */
+    int min_row = 0;
+    min_row = find_index_row_with_min(m,rows,cols);
+
+    for (int i = 0; i < cols; ++i)
+    {
+        std::swap(m[0][i],m[min_row][i]);
+
+    }
 }
 
 int main()
 {
-//    int arr [] = {4,1,0,4};
-    int arr [3][2] = {{4,1},{1,0},{3,7}};
+    int init_val = 99;
+    int rows = 3;
+    int cols = 2;
 
-    std::cout << **std::min_element(&arr[0],&arr[2]);
+    // Создание матрицы
+    int** arr = create_2d_array(rows, cols);
+
+    // Заполнение матрицы
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            arr[i][j] = init_val--;
+        }
+    }
+
+    std::cout << "Исходный массив"<< std::endl;
+    pprint_matrix(arr,rows,cols);
+
+    swap_min(arr,rows,cols);
+
+    std::cout << "Измененный массив"<< std::endl;
+    pprint_matrix(arr,rows,cols);
+
+    remove_2d_array(arr,rows, cols);
 
     return 0;
 
