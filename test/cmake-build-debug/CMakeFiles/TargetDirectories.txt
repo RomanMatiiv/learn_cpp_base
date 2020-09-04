@@ -1,3 +1,0 @@
-/Users/roman/stepic_cpp_base/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/roman/stepic_cpp_base/test/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/roman/stepic_cpp_base/test/cmake-build-debug/CMakeFiles/stepic_cpp_base.dir
