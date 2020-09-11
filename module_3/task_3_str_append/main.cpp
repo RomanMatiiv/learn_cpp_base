@@ -11,53 +11,48 @@
 //String s("Hello");
 //s.append(s); // теперь s хранит "HelloHello"
 
-// Не проходит грейдер ХЗ почему (вроде как не к своей памяти обращаюсь, хотя на своих тестах ошибки нет)
-// https://stepik.org/lesson/546/step/12?unit=869
-
 #include <cstddef> // size_t
 #include <cstring> // strlen, strcpy
 #include <iostream>
 
-struct String
-{
+
+struct String {
     size_t size;
-    char * str;
+    char *str;
 
     explicit String(const char *str = "")
     {
         this->size = std::strlen(str);
-        this->str = new char [this->size+1];
+        this->str = new char[this->size + 1];
 
-        std::strcpy(this->str,str);
+        std::strcpy(this->str, str);
     }
 
-    String(size_t n, char c)
-    {
+    String(size_t n, char c) {
         this->size = n;
-        this->str = new char [n +1];
+        this->str = new char[n + 1];
 
-        for (int i = 0; i < n; ++i)
-        {
+        for (int i = 0; i < n; ++i) {
             this->str[i] = c;
         }
         this->str[n] = '\0';
     }
 
-    ~String()
-    {
-        delete [] this->str;
+    ~String() {
+        delete[] this->str;
     }
 
-    void append(String & other)
+    void append(String &other)
     {
         unsigned new_size = other.size + this->size;
-        char* appended_str = new char [new_size];
+        char *appended_str = new char[new_size + 1];
 
-        std::memmove(appended_str, this->str, this->size);
+//        std::memmove(appended_str, this->str, this->size); // Если делать так, то будет ошибка, хз почему
+        std::strcpy(appended_str, this->str);
 
         std::strcat(appended_str,other.str);
 
-        delete [] this->str;
+        delete[] this->str;
 
         this->size = new_size;
         this->str = appended_str;
